@@ -62,6 +62,7 @@ $messages = array_reverse($messages);
         ?>
     </div>
 
+
     <!-- Форма для отправки сообщения -->
     <form action="" method="POST" class="d-flex">
         <input type="text" name="message" class="form-control me-2" placeholder="Введите сообщение..." required>
