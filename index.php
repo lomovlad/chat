@@ -1,14 +1,17 @@
-
 <?php
+var_dump([1 => 2]);
+$pdo = new PDO('sqlite:my_db.db');
 
-$db = mysqli_connect('192.168.1.68', 'root', '12345678', 'chat', '3306');
+//$db = mysqli_connect('192.168.1.68', 'root', '12345678', 'chat', '3306');
+//var_dump($res->execute([$message]))
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['message'])) {
+    $message = $_POST['message'];
+    $sqlAddMessage = 'INSERT INTO messages (message) VALUES (:message)';
+    $res = $pdo->prepare($sqlAddMessage);
+    $res->
+    var_dump($res->execute([':message'=>$message]));
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $messageText = $_POST['message'] ?? '';
 
-
-    $queryAddMessage = sprintf("INSERT INTO `messages` (`message`) VALUES ('%s')", mysqli_real_escape_string($db, $messageText));
-    mysqli_query($db, $queryAddMessage);
 
     // После успешного добавления сообщения перенаправляем на ту же страницу
     header('Location: index.php');
@@ -16,13 +19,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 
-$res = mysqli_query($db, "SELECT * FROM `messages`");  /*Получить сообщения*/
+//$res = mysqli_query($db, "SELECT * FROM `messages`");  /*Получить сообщения*/
 
 $messages = [];
 
 while ($message = mysqli_fetch_assoc($res)) {
     $messages[] = $message;
-};
+}
 
 $messages = array_reverse($messages);
 
@@ -34,6 +37,7 @@ $messages = array_reverse($messages);
     <meta charset="UTF-8">
     <title>Chat</title>
     <!-- Подключаем Bootstrap -->
+    <!--suppress JSUnresolvedLibraryURL -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="bg-light">
@@ -65,6 +69,7 @@ $messages = array_reverse($messages);
 
     <!-- Форма для отправки сообщения -->
     <form action="" method="POST" class="d-flex">
+        <!--suppress HtmlFormInputWithoutLabel -->
         <input type="text" name="message" class="form-control me-2" placeholder="Введите сообщение..." required>
         <button type="submit" class="btn btn-primary">Отправить</button>
     </form>

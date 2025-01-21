@@ -8,7 +8,7 @@ services:
     networks:
       - my_network
     volumes:
-      - db_data:/var/lib/mysql  # Добавляем volume для хранения данных
+      - ../volumes/db_data:/var/lib/mysql  # Добавляем volume для хранения данных
 
   adminer:
     image: adminer
@@ -21,5 +21,4 @@ networks:
   my_network:
     driver: bridge
 
-volumes:
-  db_data:  # Определяем volume
+
