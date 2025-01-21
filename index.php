@@ -1,9 +1,6 @@
 <?php
 
-$pdo = new PDO('sqlite:my_db.db', null, null, [
-    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-]);
+$pdo = new PDO('sqlite:my_db.db');
 
 //Логика отправки данных сообщения
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST['message'])) {
@@ -18,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST['message'])) {
 }
 
 // Получаем сообщения из БД
-$sqlGetMessages = ' SELECT * FROM messages ORDER BY created_at DESC';
+$sqlGetMessages = 'SELECT * FROM messages ORDER BY created_at DESC';
 $res = $pdo->query($sqlGetMessages);
 $messages = $res->fetchAll();
 ?>
