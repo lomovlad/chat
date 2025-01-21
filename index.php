@@ -18,11 +18,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST['message'])) {
 }
 
 // Получаем сообщения из БД
-$sqlGetMessages = 'SELECT * FROM messages';
+$sqlGetMessages = ' SELECT * FROM messages ORDER BY created_at DESC';
 $res = $pdo->query($sqlGetMessages);
 $messages = $res->fetchAll();
-
-$messages = array_reverse($messages);
 ?>
 
 <!DOCTYPE html>
