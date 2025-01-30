@@ -1,23 +1,22 @@
 <?php
 
+require_once __DIR__ . '/vendor/autoload.php';
+
+use App\Chat;
+
 $pdo = new PDO('sqlite:my_db.db');
+$chat = new Chat($pdo);
 
 //Логика отправки данных сообщения
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST['message'])) {
-    $message = trim($_POST['message']);
-    $sqlAddMessage = 'INSERT INTO messages (message) VALUES (?)';
-    $res = $pdo->prepare($sqlAddMessage);
-    $res->execute([$message]);
-
+    $chat->sendMessage($_POST['message']);
     // После успешного добавления сообщения перенаправляем на ту же страницу
     header('Location: index.php');
     die;
 }
 
 // Получаем сообщения из БД
-$sqlGetMessages = 'SELECT * FROM messages ORDER BY created_at DESC';
-$res = $pdo->query($sqlGetMessages);
-$messages = $res->fetchAll();
+$messages = $chat->getMessages();
 ?>
 
 <!DOCTYPE html>
