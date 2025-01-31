@@ -5,12 +5,6 @@
             "App\\": "src/"
         }
     },
-    "authors": [
-        {
-            "name": "mel",
-            "email": "mel@mel.rr"
-        }
-    ],
     "require": {
         "php": ">=8.0",
         "ext-pdo": "*"

@@ -4,15 +4,11 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 use App\Chat;
 
-$pdo = new PDO('sqlite:my_db.db');
-$chat = new Chat($pdo);
+$chat = new Chat();
 
 //Логика отправки данных сообщения
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST['message'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['message'])) {
     $chat->sendMessage($_POST['message']);
-    // После успешного добавления сообщения перенаправляем на ту же страницу
-    header('Location: index.php');
-    die;
 }
 
 // Получаем сообщения из БД
